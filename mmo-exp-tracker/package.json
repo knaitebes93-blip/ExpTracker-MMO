@@ -1,0 +1,55 @@
+{
+  "name": "mmo-exp-tracker",
+  "version": "0.1.0",
+  "description": "Generic MMO EXP tracker with OCR overlay",
+  "main": "dist/electron/main.js",
+  "author": "",
+  "license": "MIT",
+  "scripts": {
+    "dev": "concurrently -k \"npm:dev:vite\" \"npm:dev:electron\"",
+    "dev:vite": "vite",
+    "dev:electron": "wait-on http://localhost:5173 && cross-env VITE_DEV_SERVER_URL=http://localhost:5173 electron -r ts-node/register electron/main.ts",
+    "build": "vite build && tsc -p tsconfig.json && electron-builder",
+    "start": "npm run dev"
+  },
+  "dependencies": {
+    "electron-store": "^8.2.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tesseract.js": "^5.0.4"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.1",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "concurrently": "^8.2.2",
+    "cross-env": "^7.0.3",
+    "electron": "^31.7.4",
+    "electron-builder": "^24.13.3",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.10",
+    "wait-on": "^7.2.0",
+    "ts-node": "^10.9.2",
+    "@vitejs/plugin-react": "^4.3.4"
+  },
+  "build": {
+    "appId": "com.example.mmoexptracker",
+    "files": [
+      "dist/**/*",
+      "package.json"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    },
+    "asar": true,
+    "win": {
+      "target": "nsis",
+      "icon": "assets/icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
+}
